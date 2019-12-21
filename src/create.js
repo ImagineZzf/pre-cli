@@ -47,8 +47,6 @@ const downloadTemplate = dir => {
 
 module.exports = args => {
   // 如果没有传递参数（项目名称）
-  console.log(args)
-  console.log(process.argv)
   if (!args.length) {
     // 提示输入项目名称
     createProject()
