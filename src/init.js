@@ -2,7 +2,14 @@ const Utils = require('../utils/index')
 
 // 下载模版
 const downloadTemplate = dir => {
-  Utils.downloadTemplate(dir)
+  let template = ''
+  for (const item of Object.keys(Utils.templates)) {
+    if (process.argv.includes(`--${item}`)) {
+      template = item
+      break
+    }
+  }
+  Utils.downloadTemplate(dir, template)
     .then(res => {
       // 下载成功
     })
