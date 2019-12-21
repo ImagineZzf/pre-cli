@@ -1,6 +1,6 @@
 {
   "name": "pre-cli",
-  "version": "1.0.2",
+  "version": "1.0.0",
   "description": "pre-cli",
   "main": "index.js",
   "bin": {
