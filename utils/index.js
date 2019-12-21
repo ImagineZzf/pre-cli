@@ -4,7 +4,7 @@ const inquirer = require('inquirer')
 const fs = require('fs')
 const path = require('path')
 const download = require('download-git-repo')
-const spinner = ora('my-cli')
+const spinner = ora('pre-cli')
 
 // 获取项目名称
 const getProjectName = dir => {
@@ -69,13 +69,18 @@ const makeDir = dir => {
 }
 
 // 下载项目模版
-const downloadTemplate = dir => {
+const downloadTemplate = (dir, template = 'vue') => {
   if (!dir) {
     return
   }
-  logStart('开始下载模版，请稍等...')
+  if (!template) {
+    logExit('对不起，该模版暂不存在，请检查后重试')
+    return
+  }
+  logStart(`开始下载${template}项目模版，请稍等...`)
+  const templatePath = templates[template] || templates.vue
   return new Promise((resolve, reject) => {
-    download('ImagineZzf/vue_template', dir, function(err) {
+    download(templatePath, dir, function(err) {
       if (err) {
         // 下载失败
         logError('模版下载失败')
@@ -88,6 +93,11 @@ const downloadTemplate = dir => {
   })
 }
 
+const templates = {
+  vue: 'ImagineZzf/vue_template',
+  uni: 'ImagineZzf/uni-template'
+}
+
 module.exports = {
   getProjectName,
   resolveDir,
@@ -98,5 +108,6 @@ module.exports = {
   logError,
   logExit,
   makeDir,
-  downloadTemplate
+  downloadTemplate,
+  templates
 }

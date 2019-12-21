@@ -29,7 +29,14 @@ const makeProjectDir = dir => {
 
 // 下载模版
 const downloadTemplate = dir => {
-  Utils.downloadTemplate(dir)
+  let template = ''
+  for (const item of Object.keys(Utils.templates)) {
+    if (process.argv.includes(`--${item}`)) {
+      template = item
+      break
+    }
+  }
+  Utils.downloadTemplate(dir, template)
     .then(res => {
       // 下载成功
     })
@@ -40,6 +47,8 @@ const downloadTemplate = dir => {
 
 module.exports = args => {
   // 如果没有传递参数（项目名称）
+  console.log(args)
+  console.log(process.argv)
   if (!args.length) {
     // 提示输入项目名称
     createProject()
